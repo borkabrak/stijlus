@@ -1,0 +1,32 @@
+body {
+    background-color: #558;
+}
+
+meter {
+    width: 50%;
+}
+
+button#progress {
+    font-family: monospace;
+    padding: 1em;
+
+}
+
+progress {
+    margin: 1em;
+    height: 2em;
+    width: 50%;
+}
+
+meter {
+    margin: 1em;
+    height: 5em;
+}
+
+.hidden {
+    display: none;
+}
+
+.output {
+    font-family: monospace;
+}

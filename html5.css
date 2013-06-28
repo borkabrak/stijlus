@@ -1,0 +1,47 @@
+body {
+    background-color: #5a5c69;
+    font-family: sans-serif;
+}
+
+div {
+    border: solid #333 0.5em;
+    border-radius: 1em;
+    padding: 2em;
+    width: 60%;
+}
+
+p {
+    border-radius: 1em;
+    margin: 1em;
+    padding: 1em;
+    border: ridge #402840 0.5em;
+    color: #222;
+    background: -webkit-gradient(linear, left top, right bottom, from(#555), to(#777));
+    width: 20em;
+    font-size:0.6em;
+}
+
+p:hover {
+    color: #000;
+    font-size: 1em;
+    border-color: #705870;
+    padding:3em;
+    font-weight: bold;
+}
+
+#transform p {
+    -webkit-transition: all 0.6s ease-in-out;
+}
+
+#transform p:hover {
+    -webkit-transform: rotate(360deg);
+    background: -webkit-gradient(linear, left top, right bottom, from(#667), to(#ccd));
+}
+
+#movement p {
+    -webkit-transition: all 0.15s ease-in-out;
+}
+
+#movement p:hover {
+    background-color: #fff;
+}
