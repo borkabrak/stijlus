@@ -5,6 +5,11 @@ $(function(){
         $("#stroke-style").change();
     };
 
+    cursor = {
+        x: 0,
+        y: 0,
+    };
+
     /*
      * MODE
      */
@@ -32,6 +37,10 @@ $(function(){
         } else if (mode === "raphael") {
 
             paper = new Raphael(document.getElementById("canvas-container"), 400, 500);
+
+            $("#x, #y, #x-radius, #y-radius, #width, #height").prop("min","0").prop("step","20");
+            $("#y").prop("max",$("svg").prop("height"));
+            $("#x").prop("max",$("svg").prop("width" ));
 
         };
     };
@@ -118,5 +127,52 @@ $(function(){
     // Start in raphael mode    
     $("input[name=mode][value=raphael]").click().focus();
 
+    $r = $("#raphael");
+
+    $r.find("button#clear").on('click',function(event){
+        paper.clear();    
+    });
+
+    $r.find("button#circle").on('click',function(event){
+        circle = paper.circle( $("#x").val(), $("#y").val(), $("#x-radius").val() );
+    });
+
+    $r.find("button#ellipse").on('click',function(event){
+        circle = paper.ellipse( $("#x").val(), $("#y").val(), $("#x-radius").val(), $("#y-radius").val() );
+    });
+
+    $r.find("button#rectangle").on('click',function(event){
+        circle = paper.rect( $("#x").val(), $("#y").val(), $("#width").val(), $("#height").val() );
+    });
+
+    // Record last click
+    $("svg").on("click", function(event){
+        //clear_cursor();
+        move_cursor(event.offsetX, event.offsetY);
+    });
+
+    move_cursor = function(x, y){
+        
+        // Paths.clear( Path.cursor(cursor.x,cursor.y,10) )
+        cursor.x = x;
+        cursor.y = y;
+
+        paper.path( Paths.cursor(x, y, 10) );
+    };
+
+    /* A simple namespace for building various path strings. */
+    Paths = {
+
+        cursor:  function(x,y,size){
+            return "M" + x + " " + y +
+            "m 0" + (-1 * size) +
+            "l0 " + (size * 2) + 
+            "m " + (-1 * size) + " " + (-1 * size) +
+            "l" + (size * 2) + " 0"; },
+
+        clear: function(path_string) {
+            }
+    };
 
 });
+

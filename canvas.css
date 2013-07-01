@@ -1,5 +1,7 @@
 body {
     background-color: #944;
+    background-color: #01014b;
+    color: #ccc;
 }
 
 #canvas-container {
@@ -20,8 +22,14 @@ canvas.throb {
 }
 
 .control-panel {
+    font-family: monospace;
     background-color: #aaa;
+    color: #000;
     padding: 2em;
     border-radius: 1em;
     width: 50%;
+}
+
+.control-panel input {
+    display: block;
 }
