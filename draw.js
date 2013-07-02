@@ -1,6 +1,6 @@
 $(function(){
 
-    paper = new Raphael(document.getElementById("svg-container"), 600, 500);
+    paper = new Raphael(document.getElementById("svg-container"), 800, 450);
 
     last_action = null;
 
