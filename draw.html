@@ -18,13 +18,13 @@
 
         <section class="control-panel" id="raphael">
 
-            <div id="brush">
+            <div id="brushes">
                 <label>Rectangle
                     <input name="brush" type="radio" value="rectangle"/>
                 </label>
 
                 <label>Circle        
-                    <input name="brush" type="radio" value="circle" />
+                    <input name="brush" type="radio" value="circle" checked="checked" />
                 </label>
 
                 <label>Ellipse
@@ -35,9 +35,7 @@
             
             </div>
 
-            <div class="values">
-                x:<input id="x" type="number" value="100" min="0" />
-                y:<input id="y" type="number" value="100" min="0" />
+            <div id="values">
                 width:<input id="width" type="number" value="100" min="0" />
                 height:<input id="height" type="number" value="100" min="0" />
                 x-radius:<input id="x-radius" type="number" value="100" min="0" />
