@@ -22,8 +22,6 @@ $(function(){
         }
     };
 
-    $("#x-radius, #y-radius, #width, #height").prop("min", "0").prop("step", "20");
-
     $("button#clear").on('click', function(event){
         paper.clear();    
     });

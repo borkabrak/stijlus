@@ -18,32 +18,52 @@
 
         <section class="control-panel" id="raphael">
 
-            <div id="brushes">
-                <label>Rectangle
-                    <input name="brush" type="radio" value="rectangle"/>
-                </label>
-
-                <label>Circle        
-                    <input name="brush" type="radio" value="circle" />
-                </label>
-
-                <label>Ellipse
-                    <input name="brush" type="radio" value="ellipse" />
-                </label>
-
-                <label>Line
-                    <input name="brush" type="radio" value="line" checked="checked" />
-                </label>
-
-                <button id="clear">Clear</button>
+            <button id="clear">Clear</button>
             
+            <div id="brushes">
+                <label>
+                    <input name="brush" type="radio" value="rectangle"/>
+                    Rectangle
+                </label>
+
+                <label>
+                    <input name="brush" type="radio" value="circle" />
+                    Circle
+                </label>
+
+                <label>
+                    <input name="brush" type="radio" value="ellipse" />
+                    Ellipse
+                </label>
+
+                <label>
+                    <input name="brush" type="radio" value="line" checked="checked" />
+                    Line
+                </label>
+
             </div>
 
             <div id="values">
-                width:<input id="width" type="number" value="100" min="0" />
-                height:<input id="height" type="number" value="100" min="0" />
-                x-radius:<input id="x-radius" type="number" value="100" min="0" />
-                y-radius:<input id="y-radius" type="number" value="100" min="0" />
+                <label>
+                    <div>width:</div>
+                    <input id="width" type="range" value="100" min="0" />
+                </label>
+
+                <label>
+                    <div>height:</div>
+                    <input id="height" type="range" value="100" min="0" />
+                </label>
+
+                <label>
+                    <div>x-radius:</div>
+                    <input id="x-radius" type="range" value="100" min="0" />
+                </label>
+
+                <label>
+                    <div>y-radius:</div>
+                    <input id="y-radius" type="range" value="100" min="0" />
+                </label>
+
             </div>
 
         </section>
