@@ -26,21 +26,4 @@ $(function(){
         var shape = brushes[$("input[name=brush]:checked").val()](event.offsetX, event.offsetY);
     });
 
-    move_cursor = function(x, y){
-        paper.path( Paths.cursor(x, y, 10) );
-    };
-
-    /* A simple namespace for building various path strings. */
-    Paths = {
-        cursor:  function(x,y,size){
-            // Return a Path string drawing a cross-shaped cursor, centered on
-            // the given coordinates.
-
-            return "M" + x + " " + y +
-            "m 0" + (-1 * size) +
-            "v" + (size * 2) + 
-            "m " + (-1 * size) + " " + (-1 * size) +
-            "h" + (size * 2); },
-    };
 });
-
