@@ -4,21 +4,14 @@ body {
     color: #ccc;
 }
 
-#canvas-container {
-    width: 100px;
-}
-
-svg, canvas {
+svg {
     background-color: #ddf;
     -webkit-transition: all 1s ease-in-out;
     width: 400px;
     height: 500px;
     border: solid black 0.2em; 
     border-radius: 0.5em;
-}
-
-canvas.throb {
-    background-color: #8a8;
+    cursor: crosshair;
 }
 
 .control-panel {
@@ -30,6 +23,6 @@ canvas.throb {
     width: 50%;
 }
 
-.control-panel input {
+.values input {
     display: block;
 }
