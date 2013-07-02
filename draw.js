@@ -2,7 +2,7 @@ $(function(){
 
     paper = new Raphael(document.getElementById("svg-container"), 600, 500);
 
-    var last_action;
+    last_action = null;
 
     // Behaviors for various types of drawing
     var brushes = {
@@ -30,14 +30,20 @@ $(function(){
 
     // 'Click' handler -- actually mousedown to enable drag/drop etc.
     $("svg").on("mousedown", function(event){
-        last_action = brushes[$("input[name=brush]:checked").val()](event.offsetX, event.offsetY);
+        var brush = $("input[name=brush]:checked").val();
+        last_action = brushes[brush](event.offsetX, event.offsetY);
+        
+        if (brush !== 'line'){
+            last_action.attr({stroke: $("input[type=color]").val() });
+        };
     });
 
     // Draw a line?
     $("svg").on("mouseup", function(event){
         if ($("input[name=brush]:checked").val() === 'line'){
-            paper.path("M " + last_action.x + " " + last_action.y +
+            var line = paper.path("M " + last_action.x + " " + last_action.y +
             "L " + event.offsetX + " " + event.offsetY);
+            line.attr({stroke: $("input[type=color]").val() });
         };
     });
 
