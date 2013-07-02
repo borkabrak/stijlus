@@ -6,10 +6,7 @@ body {
 
 svg {
     background-color: #ddf;
-    -webkit-transition: all 1s ease-in-out;
-    width: 400px;
-    height: 500px;
-    border: solid black 0.2em; 
+    border: solid black 0.3em; 
     border-radius: 0.5em;
     cursor: crosshair;
 }
