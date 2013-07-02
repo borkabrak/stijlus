@@ -20,3 +20,11 @@ svg {
     width: 50%;
 }
 
+#values label, #brushes label {
+    display: block;
+}
+
+#values>label>div {
+    display: inline-block;
+    width: 7em;
+}
