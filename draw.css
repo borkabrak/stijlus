@@ -11,13 +11,18 @@ svg {
     cursor: crosshair;
 }
 
+#svg-container {
+    display: inline;
+}
+
 .control-panel {
     font-family: monospace;
     background-color: #aaa;
     color: #000;
     padding: 2em;
     border-radius: 1em;
-    width: 50%;
+    width: 40%;
+    float: right;
 }
 
 #values label, #brushes label {

@@ -14,7 +14,7 @@
     <body>
 
         <h1>Raphaël Play</h1>
-        <div id="svg-container" id="tty" > </div>
+        <div id="svg-container" > </div>
 
         <section class="control-panel" id="raphael">
 
@@ -24,7 +24,7 @@
             
             <div id="brushes">
                 <label>
-                    <input name="brush" type="radio" value="rectangle"/>
+                    <input name="brush" type="radio" value="rectangle" />
                     Rectangle
                 </label>
 
@@ -50,27 +50,32 @@
             <div id="values">
                 <label>
                     <div>width:</div>
-                    <input id="width" type="range" value="100" min="0" max="200"/>
+                    <span></span><input id="width" type="range" value="100" min="0" max="200"/><span></span>
                 </label>
 
                 <label>
                     <div>height:</div>
-                    <input id="height" type="range" value="100" min="0" max="200" />
+                    <span></span><input id="height" type="range" value="100" min="0" max="200" /><span></span>
                 </label>
 
                 <label>
                     <div>x-radius:</div>
-                    <input id="x-radius" type="range" value="100" min="0" max="200" />
+                    <span></span><input id="x-radius" type="range" value="100" min="0" max="200" /><span></span>
                 </label>
 
                 <label>
                     <div>y-radius:</div>
-                    <input id="y-radius" type="range" value="100" min="0" max="200" />
+                    <span></span><input id="y-radius" type="range" value="100" min="0" max="200" /><span></span>
                 </label>
 
                 <label>
-                    Color:
-                    <input id="color" type="color" value="#ff0000"/>
+                    <div>Stroke:</div>
+                    <input id="stroke" type="color" value="#000000"/>
+                </label>
+
+                <label>
+                    <div>Fill:</div>
+                    <input id="fill" type="color" value="#0000ff"/>
                 </label>
 
             </div>

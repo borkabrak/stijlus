@@ -35,11 +35,14 @@ $(function(){
         last_action = brushes[brush](event.offsetX, event.offsetY);
         
         if (brush !== 'line'){
-            last_action.attr({stroke: $("input[type=color]").val() });
+            last_action.attr({
+                stroke: $("input#stroke").val(),
+                fill:   $("input#fill").val() 
+            });
         };
     });
 
-    // Draw a line?
+    // On mouseup, draw a line perhaps
     $("svg").on("mouseup", function(event){
         if ($("input[name=brush]:checked").val() === 'line'){
             var line = paper.path("M " + last_action.x + " " + last_action.y +
@@ -50,10 +53,8 @@ $(function(){
 
     // Add min/max labels to the range elements
     $("input[type=range]").each(function(){
-        // GOTTA be a better way to do this..
-        $(this).closest("label").
-            append("<span>" + $(this).prop("max") + "</span>").
-            find("div").after("<span>" + $(this).prop("min") + "</span>");
+        $(this).prev("span").text( $(this).prop("min") ).
+            nextAll("span").text( $(this).prop("max") );
     });
 
 });
