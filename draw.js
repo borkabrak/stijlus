@@ -30,6 +30,7 @@ $(function(){
 
     // 'Click' handler -- actually mousedown to enable drag/drop etc.
     $("svg").on("mousedown", function(event){
+        this.focus();
         var brush = $("input[name=brush]:checked").val();
         last_action = brushes[brush](event.offsetX, event.offsetY);
         
