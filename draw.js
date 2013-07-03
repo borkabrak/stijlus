@@ -2,7 +2,7 @@ $(function(){
 
     paper = new Raphael(document.getElementById("svg-container"), 800, 450);
 
-    last_action = null;
+    last_element = null;
 
     // Behaviors for various types of drawing
     var brushes = {
@@ -21,31 +21,50 @@ $(function(){
         'line': function(x, y){
             return { x: x, y: y };
         }
+
     };
 
     // Clear button
     $("button#clear").on('click', function(event){
         paper.clear();    
+        last_element = null;
     });
 
     // 'Click' handler -- actually mousedown to enable drag/drop etc.
     $("svg").on("mousedown", function(event){
         this.focus();
         var brush = $("input[name=brush]:checked").val();
-        last_action = brushes[brush](event.offsetX, event.offsetY);
+        element = brushes[brush](event.offsetX, event.offsetY);
         
         if (brush !== 'line'){
-            last_action.attr({
+
+            // Add color
+            element.attr({
                 stroke: $("input#stroke").val(),
                 fill:   $("input#fill").val() 
             });
+
+            // Element glows on hover
+            element.hover(
+                function(){
+                    this.glowers = this.glow();
+                },
+
+                function(){
+                    this.glowers.remove();
+                },
+
+                element, element );
         };
+
+
+        last_element = element;
     });
 
     // On mouseup, draw a line perhaps
     $("svg").on("mouseup", function(event){
         if ($("input[name=brush]:checked").val() === 'line'){
-            var line = paper.path("M " + last_action.x + " " + last_action.y +
+            var line = paper.path("M " + last_element.x + " " + last_element.y +
             "L " + event.offsetX + " " + event.offsetY);
             line.attr({stroke: $("input[type=color]").val() });
         };
