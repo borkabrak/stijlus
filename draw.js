@@ -1,38 +1,69 @@
-function randomColor(){
-    var colors = [
-        '#ff0000',
-        '#00ff00',
-        '#0000ff',
-        '#ffff00',
-        '#ff00ff',
-        '#00ffff',
-    ];
+var selected_element = null;
 
-    return colors[Math.floor( Math.random() * colors.length )];
+var start_point = null;
+
+function randomColor(truly_random){
+
+    var color = "#";
+
+    if (truly_random){
+        // Build a random 8-bit color string. 
+        // (i.e. "#x0y0z0" where x, y, and z are random)
+        for(var i = 0; i < 3; i++){
+            color += Math.floor(Math.random() * 16).toString(16) + "0";
+        };
+
+    } else {
+        var colors = [
+            'ff0000',
+            '00ff00',
+            '0000ff',
+            'ffff00',
+            'ff00ff',
+            '00ffff',
+            '000000',
+            'ffffff'
+        ];
+
+        color += colors[Math.floor( Math.random() * colors.length )];
+    }
+
+    console.log("Returning '%s'",color);
+    return color;
 }
 
-// Behaviors for various types of drawing
-var shapes = {
-    'circle': function(x, y){
-        return paper.circle( x, y, $("#x-radius").val() );
-    },
+function select_element(element){
+    if (selected_element && selected_element.glowers){
+        selected_element.glowers.remove();
+    };
 
-    'ellipse': function(x, y){
-        return paper.ellipse( x, y, $("#x-radius").val(), $("#y-radius").val() );
-    },
+    if (element) {
+        element.glowers = element.glow();
+    };
 
-    'rectangle': function(x, y){
-        return paper.rect( x, y, $("#width").val(), $("#height").val() );
-    },
-
+    selected_element = element;
 };
 
 $(function(){
 
-    paper = new Raphael(document.getElementById("svg-container"), 800, 450);
+    var paper = new Raphael(document.getElementById("svg-container"), 800, 450);
 
-    var start_point = null;
-    var current_element = null;
+    // Behaviors for various types of drawing
+    var shapes = {
+        'circle': function(x, y){
+            return paper.circle( x, y, $("#x-radius").val() );
+        },
+
+        'ellipse': function(x, y){
+            return paper.ellipse( x, y, $("#x-radius").val(), $("#y-radius").val() );
+        },
+
+        'rectangle': function(x, y){
+            return paper.rect( x, y, $("#width").val(), $("#height").val() );
+        },
+
+    };
+
 
     // Clear button
     $("button#clear").on('click', function(event){
@@ -99,13 +130,7 @@ $(function(){
             });
 
             element.click(function(event){
-
-                if (current_element && current_element.glowers){
-                    current_element.glowers.remove();
-                };
-                current_element = this;
-                this.glowers = this.glow();
-
+                select_element( this === selected_element ? null : this );
             });
 
         } else if (shape === 'line')  {
@@ -133,13 +158,20 @@ $(function(){
 
     // Pick a random fill color
     $("button#random-color").on('click', function(){
-        $("#fill").val(randomColor());
+        $("#fill").val(randomColor(true)).change();
         return false;
 
     }).click();
 
+    // Pick a new color when you pick a new shape.
     $("input[name=shape]").on('change',function(){
+        select_element(null);
         $("button#random-color").click();
+    });
+
+    // Apply new color to selected element.
+    $("#fill").on('change', function(){
+        selected_element && selected_element.attr("fill", $(this).val());
     });
 
 });
