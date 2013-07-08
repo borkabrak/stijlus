@@ -265,20 +265,24 @@ $(function(){
     $("button#fall").on('click', function(event){
         if (selected_element){
             var elem = selected_element;
+            var param = {};
             select_element(null);
             if ( elem.type === 'rect' ) {
                 param = {
                     y: Math.floor(paper.height - elem.attr("height") )
                 };
+
             } else if ( elem.type === 'circle' ){
                 param = {
                     cy: Math.floor(paper.height - elem.attr("r") )
                 };
+
             } else if ( elem.type === 'ellipse' ){
                 param = {
                     cy: Math.floor(paper.height - elem.attr("ry") )
                 };
             };
+
             elem.animate(param, 1500, "bounce");
         };
     });
@@ -286,6 +290,7 @@ $(function(){
     $("button#rise").on('click', function(event){
         if (selected_element){
             var elem = selected_element;
+            var param = {};
             select_element(null);
             if ( elem.type === 'rect' ) {
                 param = { y: elem.attr("height") };
@@ -294,7 +299,7 @@ $(function(){
             } else if ( elem.type === 'ellipse' ){
                 param = { cy: elem.attr("ry") };
             };
-            elem.animate(param, 5000, "elastic");
+            elem.animate(param, 4000, "elastic");
         };
     });
 
