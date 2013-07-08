@@ -55,14 +55,40 @@ $(function(){
             
             // Enable drag-n-drop
             element.drag(
+
+                // move
                 function(dx, dy){
-                    this.attr({cx: this.ox + dx, cy: this.oy + dy});
+
+                    if (this.type === 'circle'){
+                        this.attr({
+                            cx: this.ox + dx, 
+                            cy: this.oy + dy});
+
+                    } else if (this.type === 'rect'){
+                        this.attr({
+                            x: (this.ox + dx), 
+                            y: (this.oy + dy)});
+
+                    };
                 },
 
+                // start drag (mousedown)
                 function(){
-                    this.glowers.remove();
-                    this.ox = this.attr("cx");
-                    this.oy = this.attr("cy");
+
+                    if (this.type === 'circle') {
+                        this.ox = this.attr("cx");
+                        this.oy = this.attr("cy");
+
+                    } else if (this.type === 'rect'){
+                        this.ox = this.attr('x');
+                        this.oy = this.attr('y');
+
+                    };
+                },
+                
+                // end (drop, mouseup)
+                function(){
+                    this.glowers = this.glowers.remove();
                 }
             );
 
