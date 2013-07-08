@@ -96,6 +96,8 @@ $(function(){
                 // move
                 function(dx, dy){
 
+                    if (this.glowers) { this.glowers.remove() };
+
                     if (this.type === 'rect'){
                         this.attr({
                             x: this.ox + dx, 
@@ -111,6 +113,8 @@ $(function(){
 
                 // start drag (mousedown)
                 function(){
+
+                    this.opacity = "0.5";
 
                     if (this.type === 'rect') {
                         this.ox = this.attr("x");
@@ -177,7 +181,50 @@ $(function(){
 
     // Apply new color to selected element.
     $("#fill").on('change', function(){
-        selected_element && selected_element.attr("fill", $(this).val());
+        if ( selected_element ) { 
+            selected_element.animate({fill: $(this).val()}, 200);
+        };
+    });
+
+    // Apply various dimension changes to selected elements
+    $("#width").on('change', function(){
+        if (selected_element) {
+            var elem = selected_element;
+            select_element(null);
+            elem.attr("width", $(this).val());
+            select_element(elem);
+        }
+
+    });
+
+    $("#height").on('change', function(){
+        if (selected_element) {
+            var elem = selected_element;
+            select_element(null);
+            elem.attr("height", $(this).val());
+            select_element(elem);
+        }
+
+    });
+
+    $("#x-radius").on('change', function(){
+        if (selected_element) {
+            var elem = selected_element;
+            select_element(null);
+            elem.attr("rx", $(this).val());
+            select_element(elem);
+        }
+
+    });
+
+    $("#y-radius").on('change', function(){
+        if (selected_element) {
+            var elem = selected_element;
+            select_element(null);
+            elem.attr("ry", $(this).val());
+            select_element(elem);
+        }
+
     });
 
     // Delete current element
