@@ -2,7 +2,7 @@ $(function(){
 
     paper = new Raphael(document.getElementById("svg-container"), 800, 450);
 
-    last_element = null;
+    var start_point = null;
 
     // Behaviors for various types of drawing
     var brushes = {
@@ -18,25 +18,22 @@ $(function(){
             return paper.rect( x, y, $("#width").val(), $("#height").val() );
         },
 
-        'line': function(x, y){
-            return { x: x, y: y };
-        }
-
     };
 
     // Clear button
     $("button#clear").on('click', function(event){
         paper.clear();    
-        last_element = null;
+        start_point = null;
     });
 
     // 'Click' handler -- actually mousedown to enable drag/drop etc.
     $("svg").on("mousedown", function(event){
         this.focus();
         var brush = $("input[name=brush]:checked").val();
-        element = brushes[brush](event.offsetX, event.offsetY);
-        
-        if (brush !== 'line'){
+
+        if (typeof brushes[brush] !== 'undefined'){
+            
+            element = brushes[brush](event.offsetX, event.offsetY);
 
             // Add color
             element.attr({
@@ -55,16 +52,37 @@ $(function(){
                 },
 
                 element, element );
-        };
+            
+            // Enable drag-n-drop
+            element.drag(
+                function(dx, dy){
+                    this.attr({cx: this.ox + dx, cy: this.oy + dy});
+                },
 
+                function(){
+                    this.glowers.remove();
+                    this.ox = this.attr("cx");
+                    this.oy = this.attr("cy");
+                }
+            );
 
-        last_element = element;
+            element.mousedown(function(event){
+                // Intercept mousedown (so the svg's handler doesn't fire)
+                event.stopPropagation();
+            });
+
+        } else if (brush === 'line')  {
+
+            start_point = { x: event.offsetX, y: event.offsetY };
+
+        } ;
+
     });
 
     // On mouseup, draw a line perhaps
     $("svg").on("mouseup", function(event){
         if ($("input[name=brush]:checked").val() === 'line'){
-            var line = paper.path("M " + last_element.x + " " + last_element.y +
+            var line = paper.path("M " + start_point.x + " " + start_point.y +
             "L " + event.offsetX + " " + event.offsetY);
             line.attr({stroke: $("input[type=color]").val() });
         };
