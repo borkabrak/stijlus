@@ -32,6 +32,7 @@ $(function(){
     paper = new Raphael(document.getElementById("svg-container"), 800, 450);
 
     var start_point = null;
+    var current_element = null;
 
     // Clear button
     $("button#clear").on('click', function(event){
@@ -39,7 +40,7 @@ $(function(){
         start_point = null;
     });
 
-    // 'Click' handler -- actually mousedown to enable drag/drop etc.
+    // 'Click' handler -- actually mousedown to enable line drawing.
     $("svg").on("mousedown", function(event){
         this.focus();
         var shape = $("input[name=shape]:checked").val();
@@ -54,19 +55,7 @@ $(function(){
                 fill:   $("input#fill").val() 
             });
 
-            // Element glows on hover
-            element.hover(
-                function(){
-                    this.glowers = this.glow();
-                },
-
-                function(){
-                    this.glowers.remove();
-                },
-
-                element, element );
-            
-            // Enable drag-n-drop
+            // Drag and Drop
             element.drag(
 
                 // move
@@ -101,7 +90,6 @@ $(function(){
                 
                 // end (drop, mouseup)
                 function(){
-                    this.glowers = this.glowers.remove();
                 }
             );
 
@@ -133,9 +121,15 @@ $(function(){
             nextAll("span").text( $(this).prop("max") );
     });
 
+    // Pick a random fill color
     $("button#random-color").on('click', function(){
         $("#fill").val(randomColor());
         return false;
+
     }).click();
+
+    $("input[name=shape]").on('change',function(){
+        $("button#random-color").click();
+    });
 
 });
