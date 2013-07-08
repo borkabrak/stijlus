@@ -98,6 +98,16 @@ $(function(){
                 event.stopPropagation();
             });
 
+            element.click(function(event){
+
+                if (current_element && current_element.glowers){
+                    current_element.glowers.remove();
+                };
+                current_element = this;
+                this.glowers = this.glow();
+
+            });
+
         } else if (shape === 'line')  {
 
             start_point = { x: event.offsetX, y: event.offsetY };
