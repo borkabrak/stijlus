@@ -137,6 +137,8 @@ $(function(){
             element.click(function(event){
             });
 
+            select_element(element);
+
         } else if (shape === 'line')  {
 
             start_point = { x: event.offsetX, y: event.offsetY };
