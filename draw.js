@@ -46,7 +46,7 @@ function select_element(element){
         element.toFront();
     };
 
-    selected_element = element;
+    return selected_element = element;
 };
 
 $(function(){
@@ -177,6 +177,17 @@ $(function(){
     // Apply new color to selected element.
     $("#fill").on('change', function(){
         selected_element && selected_element.attr("fill", $(this).val());
+    });
+
+    // Delete current element
+    $("button#delete").on('click', function(event){
+        if (selected_element) {
+            if (selected_element.glowers){
+                selected_element.glowers.remove();
+            };
+            selected_element.remove();
+        };
+        select_element(null);
     });
 
 });
