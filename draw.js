@@ -5,7 +5,7 @@ $(function(){
     var start_point = null;
 
     // Behaviors for various types of drawing
-    var brushes = {
+    var shapes = {
         'circle': function(x, y){
             return paper.circle( x, y, $("#x-radius").val() );
         },
@@ -29,11 +29,11 @@ $(function(){
     // 'Click' handler -- actually mousedown to enable drag/drop etc.
     $("svg").on("mousedown", function(event){
         this.focus();
-        var brush = $("input[name=brush]:checked").val();
+        var shape = $("input[name=shape]:checked").val();
 
-        if (typeof brushes[brush] !== 'undefined'){
+        if (typeof shapes[shape] !== 'undefined'){
             
-            element = brushes[brush](event.offsetX, event.offsetY);
+            element = shapes[shape](event.offsetX, event.offsetY);
 
             // Add color
             element.attr({
@@ -97,7 +97,7 @@ $(function(){
                 event.stopPropagation();
             });
 
-        } else if (brush === 'line')  {
+        } else if (shape === 'line')  {
 
             start_point = { x: event.offsetX, y: event.offsetY };
 
@@ -107,7 +107,7 @@ $(function(){
 
     // On mouseup, draw a line perhaps
     $("svg").on("mouseup", function(event){
-        if ($("input[name=brush]:checked").val() === 'line'){
+        if ($("input[name=shape]:checked").val() === 'line'){
             var line = paper.path("M " + start_point.x + " " + start_point.y +
             "L " + event.offsetX + " " + event.offsetY);
             line.attr({stroke: $("input[type=color]").val() });
