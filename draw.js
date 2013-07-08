@@ -59,15 +59,15 @@ $(function(){
                 // move
                 function(dx, dy){
 
-                    if (this.type === 'circle'){
+                    if (this.type === 'rect'){
                         this.attr({
-                            cx: this.ox + dx, 
-                            cy: this.oy + dy});
+                            x: this.ox + dx, 
+                            y: this.oy + dy});
 
-                    } else if (this.type === 'rect'){
+                    } else {
                         this.attr({
-                            x: (this.ox + dx), 
-                            y: (this.oy + dy)});
+                            cx: (this.ox + dx), 
+                            cy: (this.oy + dy)});
 
                     };
                 },
@@ -75,13 +75,13 @@ $(function(){
                 // start drag (mousedown)
                 function(){
 
-                    if (this.type === 'circle') {
-                        this.ox = this.attr("cx");
-                        this.oy = this.attr("cy");
+                    if (this.type === 'rect') {
+                        this.ox = this.attr("x");
+                        this.oy = this.attr("y");
 
-                    } else if (this.type === 'rect'){
-                        this.ox = this.attr('x');
-                        this.oy = this.attr('y');
+                    } else {
+                        this.ox = this.attr('cx');
+                        this.oy = this.attr('cy');
 
                     };
                 },
