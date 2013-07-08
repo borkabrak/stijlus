@@ -28,7 +28,6 @@ function randomColor(truly_random){
         color += colors[Math.floor( Math.random() * colors.length )];
     }
 
-    console.log("Returning '%s'",color);
     return color;
 }
 
