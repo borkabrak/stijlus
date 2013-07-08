@@ -33,12 +33,17 @@ function randomColor(truly_random){
 }
 
 function select_element(element){
+
+    // Selecting the current element deselects it.
+    element = ( element == selected_element ? null : element );
+
     if (selected_element && selected_element.glowers){
         selected_element.glowers.remove();
     };
 
-    if (element) {
+    if ( element !== null ) {
         element.glowers = element.glow();
+        element.toFront();
     };
 
     selected_element = element;
@@ -121,6 +126,7 @@ $(function(){
                 
                 // end (drop, mouseup)
                 function(){
+                    select_element( this );
                 }
             );
 
@@ -130,7 +136,6 @@ $(function(){
             });
 
             element.click(function(event){
-                select_element( this === selected_element ? null : this );
             });
 
         } else if (shape === 'line')  {
