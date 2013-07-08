@@ -50,7 +50,7 @@ function select_element(element){
 
 $(function(){
 
-    var paper = new Raphael(document.getElementById("svg-container"), 800, 450);
+    paper = new Raphael(document.getElementById("svg-container"), 800, 550);
 
     // Behaviors for various types of drawing
     var shapes = {
@@ -169,6 +169,7 @@ $(function(){
     // Pick a random fill color
     $("button#random-color").on('click', function(){
         $("#fill").val(randomColor(true)).change();
+        $("#stroke").val(randomColor(true)).change();
         return false;
 
     }).click();
@@ -182,7 +183,7 @@ $(function(){
     // Apply new color to selected element.
     $("#fill").on('change', function(){
         if ( selected_element ) { 
-            selected_element.animate({fill: $(this).val()}, 200);
+            selected_element.animate({fill: $(this).val()}, 300, "bounce");
         };
     });
 
@@ -211,7 +212,9 @@ $(function(){
         if (selected_element) {
             var elem = selected_element;
             select_element(null);
-            elem.attr("rx", $(this).val());
+            elem.attr( 
+                ( elem.type === 'ellipse' ? "rx" : "r" ), 
+                $(this).val());
             select_element(elem);
         }
 
@@ -230,12 +233,69 @@ $(function(){
     // Delete current element
     $("button#delete").on('click', function(event){
         if (selected_element) {
-            if (selected_element.glowers){
-                selected_element.glowers.remove();
+            var elem = selected_element;
+            var animation = 'ease-in-out';
+            var duration = 500;
+            var param = {opacity: 0};
+
+            if (elem.glowers){
+                elem.glowers.remove();
             };
-            selected_element.remove();
+
+            if (elem.type === 'circle') {
+                param.r = 0;
+
+            } else if (elem.type === 'ellipse') {
+                param.rx = 0;
+                param.ry = 0;
+
+            } else if (elem.type === 'rect') {
+                param.width = "0";
+                param.height = "0";
+            };
+
+            elem.animate(param, duration, animation, function(){
+                elem.remove();
+            });
+
         };
         select_element(null);
+    });
+
+    $("button#fall").on('click', function(event){
+        if (selected_element){
+            var elem = selected_element;
+            select_element(null);
+            if ( elem.type === 'rect' ) {
+                param = {
+                    y: Math.floor(paper.height - elem.attr("height") )
+                };
+            } else if ( elem.type === 'circle' ){
+                param = {
+                    cy: Math.floor(paper.height - elem.attr("r") )
+                };
+            } else if ( elem.type === 'ellipse' ){
+                param = {
+                    cy: Math.floor(paper.height - elem.attr("ry") )
+                };
+            };
+            elem.animate(param, 1500, "bounce");
+        };
+    });
+
+    $("button#rise").on('click', function(event){
+        if (selected_element){
+            var elem = selected_element;
+            select_element(null);
+            if ( elem.type === 'rect' ) {
+                param = { y: elem.attr("height") };
+            } else if ( elem.type === 'circle' ){
+                param = { cy: elem.attr("r") };
+            } else if ( elem.type === 'ellipse' ){
+                param = { cy: elem.attr("ry") };
+            };
+            elem.animate(param, 5000, "elastic");
+        };
     });
 
 });
