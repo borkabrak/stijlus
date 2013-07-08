@@ -33,3 +33,9 @@ svg {
     display: inline-block;
     width: 7em;
 }
+
+button#random-color {
+    border: solid black 1px;
+    background: inherit;
+    color: #00f;
+}

@@ -1,24 +1,37 @@
+function randomColor(){
+    var colors = [
+        '#ff0000',
+        '#00ff00',
+        '#0000ff',
+        '#ffff00',
+        '#ff00ff',
+        '#00ffff',
+    ];
+
+    return colors[Math.floor( Math.random() * colors.length )];
+}
+
+// Behaviors for various types of drawing
+var shapes = {
+    'circle': function(x, y){
+        return paper.circle( x, y, $("#x-radius").val() );
+    },
+
+    'ellipse': function(x, y){
+        return paper.ellipse( x, y, $("#x-radius").val(), $("#y-radius").val() );
+    },
+
+    'rectangle': function(x, y){
+        return paper.rect( x, y, $("#width").val(), $("#height").val() );
+    },
+
+};
+
 $(function(){
 
     paper = new Raphael(document.getElementById("svg-container"), 800, 450);
 
     var start_point = null;
-
-    // Behaviors for various types of drawing
-    var shapes = {
-        'circle': function(x, y){
-            return paper.circle( x, y, $("#x-radius").val() );
-        },
-
-        'ellipse': function(x, y){
-            return paper.ellipse( x, y, $("#x-radius").val(), $("#y-radius").val() );
-        },
-
-        'rectangle': function(x, y){
-            return paper.rect( x, y, $("#width").val(), $("#height").val() );
-        },
-
-    };
 
     // Clear button
     $("button#clear").on('click', function(event){
@@ -119,5 +132,10 @@ $(function(){
         $(this).prev("span").text( $(this).prop("min") ).
             nextAll("span").text( $(this).prop("max") );
     });
+
+    $("button#random-color").on('click', function(){
+        $("#fill").val(randomColor());
+        return false;
+    }).click();
 
 });
