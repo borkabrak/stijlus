@@ -308,8 +308,6 @@ $(function(){
     $("button#delete").on('click', function(event){
         if (selected_element) {
             var elem = selected_element;
-            var animation = 'ease-in-out';
-            var duration = 500;
             var param = {opacity: 0};
 
             if (elem.glowers){
@@ -324,11 +322,11 @@ $(function(){
                 param.ry = 0;
 
             } else if (elem.type === 'rect') {
-                param.width = "0";
-                param.height = "0";
+                param.width = 0;
+                param.height = 0;
             };
 
-            elem.animate(param, duration, animation, function(){
+            elem.animate(param, 500, 'ease-in-out', function(){
                 elem.remove();
             });
 
@@ -394,7 +392,6 @@ $(function(){
     // Display keymap
     ul = $("<ul class='keys'></ul>");
     keymap.forEach(function(mapping) {
-        console.log("Appending %o",mapping);
         ul.append($("<li>'" + mapping.key + "': " + mapping.name + "</li>"));
     });
     $("#instructions").append(ul);
