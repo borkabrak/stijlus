@@ -2,18 +2,96 @@ var selected_element = null;
 
 var start_point = null;
 
-function randomColor(truly_random){
+var keymap = [
+
+    {
+        key: ' ',
+        name: "Deselect",
+        func: function(){
+            select_element(null);
+        },
+    },
+
+    {
+        key: 'g',
+        name: "fall",
+        func: function(){
+            $("button#fall").click();
+        },
+    },
+
+    {
+
+        key: 'h',
+        name: "rise",
+        func: function(){
+            $("button#rise").click();
+        },
+    },
+
+    {
+
+        key: 'd',
+        name: "delete selected",
+        func: function(){
+            $("button#delete").click();
+        },
+    },
+
+    {
+        key: 'r',
+        name: "Rectangle mode",
+        func: function(){
+            $("input[name=shape][value=rectangle]").prop("checked", true);
+        },
+    },
+    
+    {
+        key: 'c',
+        name: "Circle mode",
+        func: function(){
+            $("input[name=shape][value=circle]").prop("checked", true);
+        },
+    },
+
+    {
+        key: 'e',
+        name: "Ellipse mode",
+        func: function(){
+            $("input[name=shape][value=ellipse]").prop("checked", true);
+        },
+    },
+
+    {
+        key: 'l',
+        name: "Line mode",
+        func: function(){
+            $("input[name=shape][value=line]").prop("checked", true);
+        },
+    },
+
+    {
+        key: 'R',
+        name: "Randomize colors",
+        func: function() {
+            $("button#random-color").click();
+        },
+    },
+];
+
+function randomColor(random_for_reals){
 
     var color = "#";
 
-    if (truly_random){
+    if (random_for_reals){
         // Build a random 8-bit color string. 
-        // (i.e. "#x0y0z0" where x, y, and z are random)
+        // (i.e. "#x0y0z0" where x, y, and z are all random)
         for(var i = 0; i < 3; i++){
             color += Math.floor(Math.random() * 16).toString(16) + "0";
         };
 
     } else {
+        // Pick a random value from a precoded list.
         var colors = [
             'ff0000',
             '00ff00',
@@ -134,7 +212,7 @@ $(function(){
                 event.stopPropagation();
             });
 
-            element.click(function(event){
+            element.click(function(){
                 select_element( this === selected_element ? null : this );
             });
 
@@ -301,4 +379,23 @@ $(function(){
         };
     });
 
+    // Handle keyed input
+    $(document).on('keypress', function(event){
+
+        var key = String.fromCharCode( event.which );
+
+        keymap.forEach(function(mapping) {
+            if (mapping.key === key){
+                mapping.func.call(); } 
+        });
+
+    });
+
+    // Display keymap
+    ul = $("<ul class='keys'></ul>");
+    keymap.forEach(function(mapping) {
+        console.log("Appending %o",mapping);
+        ul.append($("<li>'" + mapping.key + "': " + mapping.name + "</li>"));
+    });
+    $("#instructions").append(ul);
 });

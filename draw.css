@@ -34,8 +34,15 @@ svg {
     width: 7em;
 }
 
-button#random-color {
-    border: solid black 1px;
-    background: inherit;
-    color: #00f;
+#instructions ul {
+    list-style-type: none;
+}
+
+#instructions {
+    float: right;
+}
+
+label input[name=shape][checked] {
+    border: solid red 2px;
+    border-radius: 0.5em;
 }
