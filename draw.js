@@ -33,9 +33,6 @@ function randomColor(truly_random){
 
 function select_element(element){
 
-    // Selecting the current element deselects it.
-    element = ( element == selected_element ? null : element );
-
     if (selected_element && selected_element.glowers){
         selected_element.glowers.remove();
     };
@@ -96,7 +93,7 @@ $(function(){
                 // move
                 function(dx, dy){
 
-                    if (this.glowers) { this.glowers.remove() };
+                    select_element(null);
 
                     if (this.type === 'rect'){
                         this.attr({
@@ -129,7 +126,6 @@ $(function(){
                 
                 // end (drop, mouseup)
                 function(){
-                    select_element( this );
                 }
             );
 
@@ -139,8 +135,10 @@ $(function(){
             });
 
             element.click(function(event){
+                select_element( this === selected_element ? null : this );
             });
 
+            // Select newly created elements
             select_element(element);
 
         } else if (shape === 'line')  {
@@ -174,10 +172,8 @@ $(function(){
 
     }).click();
 
-    // Pick a new color when you pick a new shape.
+    // when you pick a new shape..
     $("input[name=shape]").on('change',function(){
-        select_element(null);
-        $("button#random-color").click();
     });
 
     // Apply new color to selected element.
@@ -290,12 +286,14 @@ $(function(){
     $("button#rise").on('click', function(event){
         if (selected_element){
             var elem = selected_element;
-            var param = {};
+            var param = { };
             select_element(null);
             if ( elem.type === 'rect' ) {
                 param = { y: elem.attr("height") };
             } else if ( elem.type === 'circle' ){
-                param = { cy: elem.attr("r") };
+                param = { 
+                    cy: elem.attr("r"),
+                };
             } else if ( elem.type === 'ellipse' ){
                 param = { cy: elem.attr("ry") };
             };
