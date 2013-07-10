@@ -412,18 +412,21 @@ $(function(){
     $("button#rise").on('click', function(event){
         if (selected_element){
             var elem = selected_element;
-            var param = { };
+
+            // This is sort of a hack: for rectangles, we want 0.  For circles or
+            // ellipses, we want half the (vertical) radius.  Circle have an
+            // 'r' attribute, ellipses have 'ry' instead, and rectangles have
+            // neither.
+            var rise_to = parseInt(elem.attr("r")) + parseInt(elem.attr("ry")); 
+
             select_element(null);
-            if ( elem.type === 'rect' ) {
-                param = { y: elem.attr("height") };
-            } else if ( elem.type === 'circle' ){
-                param = { 
-                    cy: elem.attr("r"),
-                };
-            } else if ( elem.type === 'ellipse' ){
-                param = { cy: elem.attr("ry") };
-            };
-            elem.animate(param, 4000, "elastic", function(){ select_element(elem)});
+
+            elem.animate(
+                { y: rise_to, cy: rise_to },  // Rectangles need 'y', circles and ellipses want 'cy'. (God!)
+                4000, 
+                "elastic", 
+                function(){ select_element(elem)}
+            );
         };
     });
 
