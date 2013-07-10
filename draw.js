@@ -87,6 +87,31 @@ var keymap = [
     },
 ];
 
+function delete_element(elem, duration){
+    duration  = duration || 300;
+    var param = {opacity: 0};
+
+    if (elem.glowers){
+        elem.glowers.remove();
+    };
+
+    if (elem.type === 'circle') {
+        param.r = 0;
+
+    } else if (elem.type === 'ellipse') {
+        param.rx = 0;
+        param.ry = 0;
+
+    } else if (elem.type === 'rect') {
+        param.width = 0;
+        param.height = 0;
+    };
+
+    elem.animate(param, duration, 'ease-in-out', function(){
+        elem.remove();
+    });
+};
+
 function randomColor(random_for_reals){
 
     var color = "#";
@@ -187,7 +212,13 @@ $(function(){
 
     // Clear button
     $("button#clear").on('click', function(event){
-        paper.clear();    
+
+        var duration = 300;
+        paper.forEach(function(elem){
+            delete_element(elem);
+        });
+
+        setTimeout(function(){paper.clear()}, duration);    
         start_point = null;
     });
 
@@ -348,29 +379,7 @@ $(function(){
     // Delete current element
     $("button#delete").on('click', function(event){
         if (selected_element) {
-            var elem = selected_element;
-            var param = {opacity: 0};
-
-            if (elem.glowers){
-                elem.glowers.remove();
-            };
-
-            if (elem.type === 'circle') {
-                param.r = 0;
-
-            } else if (elem.type === 'ellipse') {
-                param.rx = 0;
-                param.ry = 0;
-
-            } else if (elem.type === 'rect') {
-                param.width = 0;
-                param.height = 0;
-            };
-
-            elem.animate(param, 500, 'ease-in-out', function(){
-                elem.remove();
-            });
-
+            delete_element(selected_element);
         };
         select_element(null);
     });
