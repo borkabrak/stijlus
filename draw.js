@@ -1,3 +1,5 @@
+var width = 700;
+var height = 500;
 var selected_element = null;
 
 var start_point = null;
@@ -125,7 +127,7 @@ function select_element(element){
 
 $(function(){
 
-    paper = new Raphael(document.getElementById("svg-container"), 800, 550);
+    paper = new Raphael(document.getElementById("svg-container"), width, height);
 
     // Behaviors for various types of drawing
     var shapes = {
