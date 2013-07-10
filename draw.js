@@ -13,6 +13,14 @@ var keymap = [
     },
 
     {
+        key: 'C',
+        name: "Clear",
+        func: function(){
+            $("button#clear").click();
+        }
+    },
+
+    {
         key: 'g',
         name: "fall",
         func: function(){
@@ -355,7 +363,7 @@ $(function(){
                 };
             };
 
-            elem.animate(param, 1500, "bounce");
+            elem.animate(param, 1500, "bounce", function(){ select_element(elem) });
         };
     });
 
@@ -373,7 +381,7 @@ $(function(){
             } else if ( elem.type === 'ellipse' ){
                 param = { cy: elem.attr("ry") };
             };
-            elem.animate(param, 4000, "elastic");
+            elem.animate(param, 4000, "elastic", function(){ select_element(elem)});
         };
     });
 
