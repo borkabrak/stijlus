@@ -1,7 +1,10 @@
+// The currently selected Raphael element (or null if none)
 var selected_element = null;
 
+// Where mousedown happened on line drawing.
 var start_point = null;
 
+// List of hotkeys, what they're called, and what they do.
 var keymap = [
 
     {
@@ -109,7 +112,9 @@ function delete_element(elem, duration){
 
     elem.animate(param, duration, 'ease-in-out', function(){
         elem.remove();
+        select_element(paper.top);
     });
+
 };
 
 function randomColor(random_for_reals){
@@ -227,7 +232,7 @@ $(function(){
         this.focus();
         var shape = $("input[name=shape]:checked").val();
 
-        if (typeof shapes[shape] !== 'undefined'){
+        if (shape !== 'line'){
             
             element = shapes[shape](event.offsetX, event.offsetY);
 
@@ -291,7 +296,7 @@ $(function(){
             // Select newly created elements
             select_element(element);
 
-        } else if (shape === 'line')  {
+        } else {
 
             start_point = { x: event.offsetX, y: event.offsetY };
 
