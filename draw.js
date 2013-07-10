@@ -50,7 +50,7 @@ var keymap = [
         key: 'r',
         name: "Rectangle mode",
         func: function(){
-            $("input[name=shape][value=rectangle]").prop("checked", true);
+            $("input[name=shape][value=rect]").prop("checked", true);
         },
     },
     
@@ -126,9 +126,42 @@ function select_element(element){
     if ( element !== null ) {
         element.glowers = element.glow();
         element.toFront();
+        recalibrate_to(element);
     };
 
     return selected_element = element;
+};
+
+function recalibrate_to(elem){
+    // Set all input values to those of the given element.
+    var attr = elem.attrs;
+    if (attr.width) { 
+        $("#width").val(attr.width)
+    };
+
+    if (attr.height) { 
+        $("#height").val(attr.height)
+    };
+
+    if (attr.r || attr.rx) { 
+        $("#x-radius").val( attr.r ? attr.r : attr.rx )
+    };
+
+    if (attr.ry) { 
+        $("#y-radius").val(attr.ry)
+    };
+
+    if (attr.fill) { 
+        $("#fill").val(attr.fill)
+    };
+
+    if (attr.stroke) { 
+        $("#stroke").val(attr.stroke)
+    };
+
+    if (elem.type) {
+        $("input[name=shape][value=" + elem.type + "]").prop("checked", true);
+    };
 };
 
 $(function(){
@@ -145,7 +178,7 @@ $(function(){
             return paper.ellipse( x, y, $("#x-radius").val(), $("#y-radius").val() );
         },
 
-        'rectangle': function(x, y){
+        'rect': function(x, y){
             return paper.rect( x, y, $("#width").val(), $("#height").val() );
         },
 
