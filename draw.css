@@ -46,3 +46,7 @@ label input[name=shape][checked] {
     border: solid red 2px;
     border-radius: 0.5em;
 }
+
+input[type=color] {
+    width: 10em;
+}
