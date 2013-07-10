@@ -1,3 +1,6 @@
+var width = 700;
+var height = 500;
+
 // The currently selected Raphael element (or null if none)
 var selected_element = null;
 
@@ -196,7 +199,7 @@ function recalibrate_to(elem){
 
 $(function(){
 
-    paper = new Raphael(document.getElementById("svg-container"), 800, 550);
+    paper = new Raphael(document.getElementById("svg-container"), width, height);
 
     // Behaviors for various types of drawing
     var shapes = {
