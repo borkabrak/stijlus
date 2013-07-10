@@ -228,7 +228,7 @@ $(function(){
     });
 
     // 'Click' handler -- actually mousedown to enable line drawing.
-    $("svg").on("mousedown", function(event){
+    $("#svg-container").on("mousedown", function(event){
         this.focus();
         var shape = $("input[name=shape]:checked").val();
 
@@ -305,7 +305,7 @@ $(function(){
     });
 
     // On mouseup, draw a line perhaps
-    $("svg").on("mouseup", function(event){
+    $("#svg-container").on("mouseup", function(event){
         if ($("input[name=shape]:checked").val() === 'line'){
             var line = paper.path("M " + start_point.x + " " + start_point.y +
             "L " + event.offsetX + " " + event.offsetY);
