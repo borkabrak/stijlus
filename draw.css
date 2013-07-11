@@ -42,9 +42,8 @@ svg {
     float: right;
 }
 
-label input[name=shape][checked] {
-    border: solid red 2px;
-    border-radius: 0.5em;
+label:hover {
+    font-weight: bold;
 }
 
 input[type=color] {
