@@ -154,7 +154,11 @@ function select_element(element){
         selected_element.glowers.remove();
     };
 
-    if ( element !== null ) {
+    if ( element === null ) {
+        $(".with-selected").fadeOut(100);
+
+    } else {
+        $(".with-selected").fadeIn(100);
         element.glowers = element.glow();
         element.toFront();
         recalibrate_to(element);
@@ -454,4 +458,6 @@ $(function(){
         ul.append($("<li>'" + mapping.key + "': " + mapping.name + "</li>"));
     });
     $("#instructions").append(ul);
+
+    
 });
