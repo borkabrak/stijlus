@@ -101,19 +101,17 @@ function delete_element(elem, duration){
         elem.glowers.remove();
     };
 
-    if (elem.type === 'circle') {
-        param.r = 0;
+    elem.animate(
+        {
+            r:      0,
+            rx:     0,
+            ry:     0,
+            width:  0,
+            height: 0,
+            transform: "r360"
+        }, 
 
-    } else if (elem.type === 'ellipse') {
-        param.rx = 0;
-        param.ry = 0;
-
-    } else if (elem.type === 'rect') {
-        param.width = 0;
-        param.height = 0;
-    };
-
-    elem.animate(param, duration, 'ease-in-out', function(){
+        duration, 'ease-in-out', function(){
         elem.remove();
         select_element(paper.top);
     });
