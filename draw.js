@@ -429,7 +429,7 @@ $(function(){
 
             elem.animate(
                 { y: rise_to, cy: rise_to },  // Rectangles need 'y', circles and ellipses want 'cy'. (God!)
-                3000, 
+                2500, 
                 "elastic", 
                 function(){ select_element(elem)}
             );
