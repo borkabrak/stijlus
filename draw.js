@@ -314,7 +314,13 @@ $(function(){
         if ($("input[name=shape]:checked").val() === 'line'){
             var line = paper.path("M " + start_point.x + " " + start_point.y +
             "L " + event.offsetX + " " + event.offsetY);
-            line.attr({stroke: $("input[type=color]").val() });
+            line.attr({
+                stroke: $("input[type=color]").val(),
+                'stroke-width': "3px"
+            });
+            line.click(function(){
+                select_element( this === selected_element ? null : this );
+            });
         };
     });
 
