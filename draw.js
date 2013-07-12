@@ -155,10 +155,10 @@ function select_element(element){
     };
 
     if ( element === null ) {
-        $(".with-selected").fadeOut(100);
+        $(".with-selected").attr("disabled","disabled");
 
     } else {
-        $(".with-selected").fadeIn(100);
+        $(".with-selected").attr("disabled", null);
         element.glowers = element.glow();
         element.toFront();
         recalibrate_to(element);
@@ -455,5 +455,6 @@ $(function(){
     });
     $("#instructions").append(ul);
 
+    select_element(null);
     
 });
