@@ -347,7 +347,6 @@ $(function(){
     $("#width").on('change', function(){
         if (selected_element) {
             var elem = selected_element;
-            select_element(null);
             elem.attr("width", $(this).val());
             select_element(elem);
         }
@@ -357,7 +356,6 @@ $(function(){
     $("#height").on('change', function(){
         if (selected_element) {
             var elem = selected_element;
-            select_element(null);
             elem.attr("height", $(this).val());
             select_element(elem);
         }
@@ -367,7 +365,6 @@ $(function(){
     $("#x-radius").on('change', function(){
         if (selected_element) {
             var elem = selected_element;
-            select_element(null);
             elem.attr( 
                 ( elem.type === 'ellipse' ? "rx" : "r" ), 
                 $(this).val());
@@ -379,7 +376,6 @@ $(function(){
     $("#y-radius").on('change', function(){
         if (selected_element) {
             var elem = selected_element;
-            select_element(null);
             elem.attr("ry", $(this).val());
             select_element(elem);
         }
