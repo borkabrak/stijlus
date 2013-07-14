@@ -4,7 +4,7 @@ var height = 500;
 // The currently selected Raphael element (or null if none)
 var selected_element = null;
 
-// Where mousedown happened on line drawing.
+// Where mousedown happened when line drawing.
 var start_point = null;
 
 // List of hotkeys, what they're called, and what they do.
