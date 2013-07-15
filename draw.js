@@ -85,6 +85,14 @@ var keymap = [
     },
 
     {
+        key: 'u',
+        name: 'Up Arrow Mode',
+        func: function(){
+            $("input[name=shape][value=up-arrow]").prop("checked", true);
+        }
+    },
+
+    {
         key: 'R',
         name: "Randomize colors",
         func: function() {
