@@ -56,7 +56,7 @@ var keymap = [
         key: 'r',
         name: "Rectangle mode",
         func: function(){
-            $("input[name=shape][value=rect]").prop("checked", true);
+            $("input[name=shape][value=rect]").prop("checked", true).change();
         },
     },
     
@@ -64,7 +64,7 @@ var keymap = [
         key: 'c',
         name: "Circle mode",
         func: function(){
-            $("input[name=shape][value=circle]").prop("checked", true);
+            $("input[name=shape][value=circle]").prop("checked", true).change();
         },
     },
 
@@ -72,7 +72,7 @@ var keymap = [
         key: 'e',
         name: "Ellipse mode",
         func: function(){
-            $("input[name=shape][value=ellipse]").prop("checked", true);
+            $("input[name=shape][value=ellipse]").prop("checked", true).change();
         },
     },
 
@@ -92,6 +92,38 @@ var keymap = [
         },
     },
 ];
+
+
+// Set inputs to default sizes such as radius, width, etc. for the various
+// shapes.
+function reset_sizes(shape){
+    var default_sizes = {
+        'rect': {
+            'height':   50,
+            'width':    100,
+            'x-radius': 0,
+            'y-radius': 0
+        },
+
+        'circle': {
+            'height':   0,
+            'width':    0,
+            'x-radius': 50,
+            'y-radius': 0
+        },
+
+        'ellipse': {
+            'height':   0,
+            'width':    0,
+            'x-radius': 100,
+            'y-radius': 50
+        }
+    };
+
+    for(var k in default_sizes[shape]){
+        $("#" + k ).val(default_sizes[shape][k]);
+    };
+};
 
 function delete_element(elem, duration){
     duration  = duration || 300;
@@ -334,6 +366,7 @@ $(function(){
 
     // when you pick a new shape..
     $("input[name=shape]").on('change',function(){
+        reset_sizes($(this).val());
     });
 
     // Apply new color to selected element.
