@@ -252,6 +252,18 @@ $(function(){
                 .attr({stroke: $("#stroke").val(), fill: $("#fill").val()});
         },
 
+        'up-arrow': function(x, y, s) {
+            s = s || 1;
+            return paper.path("M" + x + "," + y + 
+            " l0," + (-100 * s) + 
+            " l" + (-50 * s) + ",0" +
+            " l" + (100 * s) + "," + (-100 * s) + 
+            " l " + (100 * s) + "," + (100 * s) + 
+            " l " + (-50 * s) + ",0" +
+            " l0," + (100 * s) +
+            " z").attr({stroke: $("#stroke").val(), fill: $("#fill").val()});
+        }
+
     };
 
     // Clear button
@@ -273,7 +285,7 @@ $(function(){
 
         if (shape !== 'line'){
             
-            element = shapes[shape](event.offsetX, event.offsetY);
+            var element = shapes[shape](event.offsetX, event.offsetY);
 
             // Drag and Drop
             element.drag(
