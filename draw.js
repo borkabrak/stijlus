@@ -4,7 +4,7 @@ var height = 500;
 // The currently selected Raphael element (or null if none)
 var selected_element = null;
 
-// Where mousedown happened on line drawing.
+// Where mousedown happened when line drawing.
 var start_point = null;
 
 // List of hotkeys, what they're called, and what they do.
@@ -56,7 +56,7 @@ var keymap = [
         key: 'r',
         name: "Rectangle mode",
         func: function(){
-            $("input[name=shape][value=rect]").prop("checked", true);
+            $("input[name=shape][value=rect]").prop("checked", true).change();
         },
     },
     
@@ -64,7 +64,7 @@ var keymap = [
         key: 'c',
         name: "Circle mode",
         func: function(){
-            $("input[name=shape][value=circle]").prop("checked", true);
+            $("input[name=shape][value=circle]").prop("checked", true).change();
         },
     },
 
@@ -72,7 +72,7 @@ var keymap = [
         key: 'e',
         name: "Ellipse mode",
         func: function(){
-            $("input[name=shape][value=ellipse]").prop("checked", true);
+            $("input[name=shape][value=ellipse]").prop("checked", true).change();
         },
     },
 
@@ -92,6 +92,38 @@ var keymap = [
         },
     },
 ];
+
+
+// Set inputs to default sizes such as radius, width, etc. for the various
+// shapes.
+function reset_sizes(shape){
+    var default_sizes = {
+        'rect': {
+            'height':   50,
+            'width':    100,
+            'x-radius': 0,
+            'y-radius': 0
+        },
+
+        'circle': {
+            'height':   0,
+            'width':    0,
+            'x-radius': 50,
+            'y-radius': 0
+        },
+
+        'ellipse': {
+            'height':   0,
+            'width':    0,
+            'x-radius': 100,
+            'y-radius': 50
+        }
+    };
+
+    for(var k in default_sizes[shape]){
+        $("#" + k ).val(default_sizes[shape][k]);
+    };
+};
 
 function delete_element(elem, duration){
     duration  = duration || 300;
@@ -206,19 +238,21 @@ $(function(){
     // Behaviors for various types of drawing
     var shapes = {
         'circle': function(x, y){
-            return paper.circle( x, y, $("#x-radius").val() );
+            return paper.circle( x, y, $("#x-radius").val() )
+                .attr({stroke: $("#stroke").val(), fill: $("#fill").val()});
         },
 
         'ellipse': function(x, y){
-            return paper.ellipse( x, y, $("#x-radius").val(), $("#y-radius").val() );
+            return paper.ellipse( x, y, $("#x-radius").val(), $("#y-radius").val() )
+                .attr({stroke: $("#stroke").val(), fill: $("#fill").val()});
         },
 
         'rect': function(x, y){
-            return paper.rect( x, y, $("#width").val(), $("#height").val() );
+            return paper.rect( x, y, $("#width").val(), $("#height").val() )
+                .attr({stroke: $("#stroke").val(), fill: $("#fill").val()});
         },
 
     };
-
 
     // Clear button
     $("button#clear").on('click', function(event){
@@ -240,12 +274,6 @@ $(function(){
         if (shape !== 'line'){
             
             element = shapes[shape](event.offsetX, event.offsetY);
-
-            // Add color
-            element.attr({
-                stroke: $("input#stroke").val(),
-                fill:   $("input#fill").val() 
-            });
 
             // Drag and Drop
             element.drag(
@@ -312,12 +340,13 @@ $(function(){
     // On mouseup, draw a line perhaps
     $("#svg-container").on("mouseup", function(event){
         if ($("input[name=shape]:checked").val() === 'line'){
+
+            // Draw the line
             var line = paper.path("M " + start_point.x + " " + start_point.y +
-            "L " + event.offsetX + " " + event.offsetY);
-            line.attr({
-                stroke: $("input[type=color]").val(),
-                'stroke-width': "3px"
-            });
+                "L " + event.offsetX + " " + event.offsetY )
+                .attr({stroke: $("input[type=color]").val() });
+
+            // Make the line selectable
             line.click(function(){
                 select_element( this === selected_element ? null : this );
             });
@@ -340,6 +369,7 @@ $(function(){
 
     // when you pick a new shape..
     $("input[name=shape]").on('change',function(){
+        reset_sizes($(this).val());
     });
 
     // Apply new color to selected element.
