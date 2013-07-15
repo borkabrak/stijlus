@@ -238,19 +238,21 @@ $(function(){
     // Behaviors for various types of drawing
     var shapes = {
         'circle': function(x, y){
-            return paper.circle( x, y, $("#x-radius").val() );
+            return paper.circle( x, y, $("#x-radius").val() )
+                .attr({stroke: $("#stroke").val(), fill: $("#fill").val()});
         },
 
         'ellipse': function(x, y){
-            return paper.ellipse( x, y, $("#x-radius").val(), $("#y-radius").val() );
+            return paper.ellipse( x, y, $("#x-radius").val(), $("#y-radius").val() )
+                .attr({stroke: $("#stroke").val(), fill: $("#fill").val()});
         },
 
         'rect': function(x, y){
-            return paper.rect( x, y, $("#width").val(), $("#height").val() );
+            return paper.rect( x, y, $("#width").val(), $("#height").val() )
+                .attr({stroke: $("#stroke").val(), fill: $("#fill").val()});
         },
 
     };
-
 
     // Clear button
     $("button#clear").on('click', function(event){
@@ -272,12 +274,6 @@ $(function(){
         if (shape !== 'line'){
             
             element = shapes[shape](event.offsetX, event.offsetY);
-
-            // Add color
-            element.attr({
-                stroke: $("input#stroke").val(),
-                fill:   $("input#fill").val() 
-            });
 
             // Drag and Drop
             element.drag(
