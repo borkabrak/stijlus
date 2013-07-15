@@ -341,8 +341,8 @@ $(function(){
     $("#svg-container").on("mouseup", function(event){
         if ($("input[name=shape]:checked").val() === 'line'){
             var line = paper.path("M " + start_point.x + " " + start_point.y +
-            "L " + event.offsetX + " " + event.offsetY);
-            line.attr({stroke: $("input[type=color]").val() });
+            "L " + event.offsetX + " " + event.offsetY)
+                .attr({stroke: $("input[type=color]").val() });
         };
     });
 
