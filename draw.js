@@ -143,18 +143,25 @@ function delete_element(elem, duration){
 
     elem.animate(
         {
-            r:      0,
-            rx:     0,
-            ry:     0,
-            width:  0,
-            height: 0,
-            transform: "r360"
-        }, 
-
-        duration, 'ease-in-out', function(){
-        elem.remove();
-        select_element(paper.top);
-    });
+            transform: "s1.5 r-180"
+        },
+        duration / 2,
+        'ease-in-out',
+        function(){ 
+            this.animate(
+                {
+                    transform: "s0.1 r270",
+                    opacity: 0
+                }, 
+                duration / 2, 
+                'ease-in-out',
+                function() { 
+                    this.remove() 
+                    select_element(paper.top);
+                }
+            ); 
+        }
+    );
 
 };
 
