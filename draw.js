@@ -208,7 +208,6 @@ function select_element(element){
         $(".with-selected").attr("disabled", null);
         element.glowers = element.glow();
         element.toFront();
-        recalibrate_to(element);
     };
 
     return selected_element = element;
@@ -351,6 +350,7 @@ $(function(){
 
             element.click(function(){
                 select_element( this === selected_element ? null : this );
+                recalibrate_to(this);
             });
 
             // Select newly created elements
