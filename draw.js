@@ -401,6 +401,10 @@ $(function(){
 
     // Apply new color to selected element.
     $("#fill").on('change', function(){
+
+        // Update the tooltip
+        $(this).attr("title", $(this).val() );
+
         if ( selected_element ) { 
             selected_element.animate({fill: $(this).val()}, 300, "bounce");
         };
