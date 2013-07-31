@@ -143,18 +143,25 @@ function delete_element(elem, duration){
 
     elem.animate(
         {
-            r:      0,
-            rx:     0,
-            ry:     0,
-            width:  0,
-            height: 0,
-            transform: "r360"
-        }, 
-
-        duration, 'ease-in-out', function(){
-        elem.remove();
-        select_element(paper.top);
-    });
+            transform: "s1.5 r-180"
+        },
+        duration / 2,
+        'ease-in-out',
+        function(){ 
+            this.animate(
+                {
+                    transform: "s0.1 r270",
+                    opacity: 0
+                }, 
+                duration / 2, 
+                'ease-in-out',
+                function() { 
+                    this.remove() 
+                    select_element(paper.top);
+                }
+            ); 
+        }
+    );
 
 };
 
@@ -201,7 +208,6 @@ function select_element(element){
         $(".with-selected").attr("disabled", null);
         element.glowers = element.glow();
         element.toFront();
-        recalibrate_to(element);
     };
 
     return selected_element = element;
@@ -344,6 +350,7 @@ $(function(){
 
             element.click(function(){
                 select_element( this === selected_element ? null : this );
+                recalibrate_to(this);
             });
 
             // Select newly created elements
@@ -394,6 +401,10 @@ $(function(){
 
     // Apply new color to selected element.
     $("#fill").on('change', function(){
+
+        // Update the tooltip
+        $(this).attr("title", $(this).val() );
+
         if ( selected_element ) { 
             selected_element.animate({fill: $(this).val()}, 300, "bounce");
         };
