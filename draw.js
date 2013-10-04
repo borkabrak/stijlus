@@ -7,100 +7,6 @@ var selected_element = null;
 // Where mousedown happened when line drawing.
 var start_point = null;
 
-// List of hotkeys, what they're called, and what they do.
-var keymap = [
-
-    {
-        key: ' ',
-        name: "Deselect",
-        func: function(){
-            select_element(null);
-        },
-    },
-
-    {
-        key: 'C',
-        name: "Clear",
-        func: function(){
-            $("button#clear").click();
-        }
-    },
-
-    {
-        key: 'g',
-        name: "fall",
-        func: function(){
-            $("button#fall").click();
-        },
-    },
-
-    {
-
-        key: 'h',
-        name: "rise",
-        func: function(){
-            $("button#rise").click();
-        },
-    },
-
-    {
-
-        key: 'd',
-        name: "delete selected",
-        func: function(){
-            $("button#delete").click();
-        },
-    },
-
-    {
-        key: 'r',
-        name: "Rectangle mode",
-        func: function(){
-            $("input[name=shape][value=rect]").prop("checked", true).change();
-        },
-    },
-    
-    {
-        key: 'c',
-        name: "Circle mode",
-        func: function(){
-            $("input[name=shape][value=circle]").prop("checked", true).change();
-        },
-    },
-
-    {
-        key: 'e',
-        name: "Ellipse mode",
-        func: function(){
-            $("input[name=shape][value=ellipse]").prop("checked", true).change();
-        },
-    },
-
-    {
-        key: 'l',
-        name: "Line mode",
-        func: function(){
-            $("input[name=shape][value=line]").prop("checked", true);
-        },
-    },
-
-    {
-        key: 'u',
-        name: 'Up Arrow Mode',
-        func: function(){
-            $("input[name=shape][value=up-arrow]").prop("checked", true);
-        }
-    },
-
-    {
-        key: 'R',
-        name: "Randomize colors",
-        func: function() {
-            $("button#random-color").click();
-        },
-    },
-];
-
 
 // Set inputs to default sizes such as radius, width, etc. for the various
 // shapes.
@@ -525,3 +431,97 @@ $(function(){
     select_element(null);
     
 });
+
+// List of hotkeys, what they're called, and what they do.
+var keymap = [
+
+    {
+        key: ' ',
+        name: "Deselect",
+        func: function(){
+            select_element(null);
+        },
+    },
+
+    {
+        key: 'C',
+        name: "Clear",
+        func: function(){
+            $("button#clear").click();
+        }
+    },
+
+    {
+        key: 'g',
+        name: "fall",
+        func: function(){
+            $("button#fall").click();
+        },
+    },
+
+    {
+
+        key: 'h',
+        name: "rise",
+        func: function(){
+            $("button#rise").click();
+        },
+    },
+
+    {
+
+        key: 'd',
+        name: "delete selected",
+        func: function(){
+            $("button#delete").click();
+        },
+    },
+
+    {
+        key: 'r',
+        name: "Rectangle mode",
+        func: function(){
+            $("input[name=shape][value=rect]").prop("checked", true).change();
+        },
+    },
+    
+    {
+        key: 'c',
+        name: "Circle mode",
+        func: function(){
+            $("input[name=shape][value=circle]").prop("checked", true).change();
+        },
+    },
+
+    {
+        key: 'e',
+        name: "Ellipse mode",
+        func: function(){
+            $("input[name=shape][value=ellipse]").prop("checked", true).change();
+        },
+    },
+
+    {
+        key: 'l',
+        name: "Line mode",
+        func: function(){
+            $("input[name=shape][value=line]").prop("checked", true);
+        },
+    },
+
+    {
+        key: 'u',
+        name: 'Up Arrow Mode',
+        func: function(){
+            $("input[name=shape][value=up-arrow]").prop("checked", true);
+        }
+    },
+
+    {
+        key: 'R',
+        name: "Randomize colors",
+        func: function() {
+            $("button#random-color").click();
+        },
+    },
+];
