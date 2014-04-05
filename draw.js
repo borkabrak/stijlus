@@ -1,3 +1,4 @@
+"use strict";
 var width = 700;
 var height = 500;
 
@@ -153,7 +154,7 @@ function recalibrate_to(elem){
 
 $(function(){
 
-    paper = new Raphael(document.getElementById("svg-container"), width, height);
+    var paper = new Raphael(document.getElementById("svg-container"), width, height);
 
     // Behaviors for various types of drawing
     var shapes = {
@@ -204,8 +205,11 @@ $(function(){
         var shape = $("input[name=shape]:checked").val();
 
         if (shape !== 'line'){
-            
-            var element = shapes[shape](event.offsetX, event.offsetY);
+
+            // only webkit has the 'offsetX/Y' coords.. account for that (firefox, for example)
+            var x = event.offsetX || event.originalEvent.layerX;
+            var y = event.offsetY || event.originalEvent.layerY;
+            var element = shapes[shape](x, y);
 
             // Drag and Drop
             element.drag(
@@ -422,7 +426,7 @@ $(function(){
     });
 
     // Display keymap
-    ul = $("<ul class='keys'></ul>");
+    var ul = $("<ul class='keys'></ul>");
     keymap.forEach(function(mapping) {
         ul.append($("<li>'" + mapping.key + "': " + mapping.name + "</li>"));
     });
