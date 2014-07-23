@@ -143,10 +143,6 @@ function recalibrate_to(elem){
         $("#fill").val(attr.fill)
     };
 
-    if (attr.stroke) { 
-        $("#stroke").val(attr.stroke)
-    };
-
     if (elem.type) {
         $("input[name=shape][value=" + elem.type + "]").prop("checked", true);
     };
@@ -160,17 +156,17 @@ $(function(){
     var shapes = {
         'circle': function(x, y){
             return paper.circle( x, y, $("#x-radius").val() )
-                .attr({stroke: $("#stroke").val(), fill: $("#fill").val()});
+                .attr({stroke: $("#fill").val(), fill: $("#fill").val()});
         },
 
         'ellipse': function(x, y){
             return paper.ellipse( x, y, $("#x-radius").val(), $("#y-radius").val() )
-                .attr({stroke: $("#stroke").val(), fill: $("#fill").val()});
+                .attr({stroke: $("#fill").val(), fill: $("#fill").val()});
         },
 
         'rect': function(x, y){
             return paper.rect( x, y, $("#width").val(), $("#height").val() )
-                .attr({stroke: $("#stroke").val(), fill: $("#fill").val()});
+                .attr({stroke: $("#fill").val(), fill: $("#fill").val()});
         },
 
         'up-arrow': function(x, y, s) {
@@ -182,7 +178,7 @@ $(function(){
             " l " + (100 * s) + "," + (100 * s) + 
             " l " + (-50 * s) + ",0" +
             " l0," + (100 * s) +
-            " z").attr({stroke: $("#stroke").val(), fill: $("#fill").val()});
+            " z").attr({stroke: $("#fill").val(), fill: $("#fill").val()});
         }
 
     };
@@ -299,7 +295,6 @@ $(function(){
     // Pick a random fill color
     $("button#random-color").on('click', function(){
         $("#fill").val(randomColor(true)).change();
-        $("#stroke").val(randomColor(true)).change();
         return false;
 
     }).click();
